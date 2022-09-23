@@ -13,9 +13,19 @@
 		B5169AC128DD859100820F85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5169ABF28DD859100820F85 /* Main.storyboard */; };
 		B5169AC328DD859300820F85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5169AC228DD859300820F85 /* Assets.xcassets */; };
 		B5169AC628DD859300820F85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5169AC428DD859300820F85 /* LaunchScreen.storyboard */; };
+		B5169ACE28DD929E00820F85 /* CustomTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169ACD28DD929E00820F85 /* CustomTVC.swift */; };
+		B5169AD028DD92E400820F85 /* ActionButtonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169ACF28DD92E400820F85 /* ActionButtonVC.swift */; };
+		B5169AD228DD930400820F85 /* TopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169AD128DD930400820F85 /* TopUpVC.swift */; };
+		B5169AD428DD932400820F85 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169AD328DD932400820F85 /* TestModel.swift */; };
+		B5169AD628DD933E00820F85 /* ModelRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169AD528DD933E00820F85 /* ModelRealm.swift */; };
+		B5169AD828DD935E00820F85 /* TransactionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169AD728DD935E00820F85 /* TransactionsVC.swift */; };
+		B5169ADA28DD938000820F85 /* TransactionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5169AD928DD938000820F85 /* TransactionTVC.swift */; };
+		F81DD0804E07C65A7493AA76 /* Pods_BankAppRealmDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4E613A9E8DC40470870A49 /* Pods_BankAppRealmDB.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D4E613A9E8DC40470870A49 /* Pods_BankAppRealmDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BankAppRealmDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0AF2FC7050F90DB9B4A6FC6 /* Pods-BankAppRealmDB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BankAppRealmDB.debug.xcconfig"; path = "Target Support Files/Pods-BankAppRealmDB/Pods-BankAppRealmDB.debug.xcconfig"; sourceTree = "<group>"; };
 		B5169AB628DD859100820F85 /* BankAppRealmDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankAppRealmDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5169AB928DD859100820F85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5169ABB28DD859100820F85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +34,14 @@
 		B5169AC228DD859300820F85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5169AC528DD859300820F85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5169AC728DD859300820F85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5169ACD28DD929E00820F85 /* CustomTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTVC.swift; sourceTree = "<group>"; };
+		B5169ACF28DD92E400820F85 /* ActionButtonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonVC.swift; sourceTree = "<group>"; };
+		B5169AD128DD930400820F85 /* TopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpVC.swift; sourceTree = "<group>"; };
+		B5169AD328DD932400820F85 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		B5169AD528DD933E00820F85 /* ModelRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRealm.swift; sourceTree = "<group>"; };
+		B5169AD728DD935E00820F85 /* TransactionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsVC.swift; sourceTree = "<group>"; };
+		B5169AD928DD938000820F85 /* TransactionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTVC.swift; sourceTree = "<group>"; };
+		C91C4CCEB771A64593BA863E /* Pods-BankAppRealmDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BankAppRealmDB.release.xcconfig"; path = "Target Support Files/Pods-BankAppRealmDB/Pods-BankAppRealmDB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +49,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F81DD0804E07C65A7493AA76 /* Pods_BankAppRealmDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11752D7D22D993B04F0ED7EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A0AF2FC7050F90DB9B4A6FC6 /* Pods-BankAppRealmDB.debug.xcconfig */,
+				C91C4CCEB771A64593BA863E /* Pods-BankAppRealmDB.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B5169AAD28DD859100820F85 = {
 			isa = PBXGroup;
 			children = (
 				B5169AB828DD859100820F85 /* BankAppRealmDB */,
 				B5169AB728DD859100820F85 /* Products */,
+				11752D7D22D993B04F0ED7EE /* Pods */,
+				FE61CCD382BD3F961DBA9F93 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +93,23 @@
 				B5169AC228DD859300820F85 /* Assets.xcassets */,
 				B5169AC428DD859300820F85 /* LaunchScreen.storyboard */,
 				B5169AC728DD859300820F85 /* Info.plist */,
+				B5169ACD28DD929E00820F85 /* CustomTVC.swift */,
+				B5169ACF28DD92E400820F85 /* ActionButtonVC.swift */,
+				B5169AD128DD930400820F85 /* TopUpVC.swift */,
+				B5169AD328DD932400820F85 /* TestModel.swift */,
+				B5169AD528DD933E00820F85 /* ModelRealm.swift */,
+				B5169AD728DD935E00820F85 /* TransactionsVC.swift */,
+				B5169AD928DD938000820F85 /* TransactionTVC.swift */,
 			);
 			path = BankAppRealmDB;
+			sourceTree = "<group>";
+		};
+		FE61CCD382BD3F961DBA9F93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D4E613A9E8DC40470870A49 /* Pods_BankAppRealmDB.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +119,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5169ACA28DD859300820F85 /* Build configuration list for PBXNativeTarget "BankAppRealmDB" */;
 			buildPhases = (
+				B49E34022A18A7EDC8EED146 /* [CP] Check Pods Manifest.lock */,
 				B5169AB228DD859100820F85 /* Sources */,
 				B5169AB328DD859100820F85 /* Frameworks */,
 				B5169AB428DD859100820F85 /* Resources */,
+				B8CFD656133C7CDC7BC2D0A5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +180,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B49E34022A18A7EDC8EED146 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BankAppRealmDB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8CFD656133C7CDC7BC2D0A5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BankAppRealmDB/Pods-BankAppRealmDB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BankAppRealmDB/Pods-BankAppRealmDB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BankAppRealmDB/Pods-BankAppRealmDB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B5169AB228DD859100820F85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -140,6 +229,13 @@
 			files = (
 				B5169ABE28DD859100820F85 /* ViewController.swift in Sources */,
 				B5169ABA28DD859100820F85 /* AppDelegate.swift in Sources */,
+				B5169ACE28DD929E00820F85 /* CustomTVC.swift in Sources */,
+				B5169AD428DD932400820F85 /* TestModel.swift in Sources */,
+				B5169AD228DD930400820F85 /* TopUpVC.swift in Sources */,
+				B5169AD628DD933E00820F85 /* ModelRealm.swift in Sources */,
+				B5169AD828DD935E00820F85 /* TransactionsVC.swift in Sources */,
+				B5169AD028DD92E400820F85 /* ActionButtonVC.swift in Sources */,
+				B5169ADA28DD938000820F85 /* TransactionTVC.swift in Sources */,
 				B5169ABC28DD859100820F85 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +378,7 @@
 		};
 		B5169ACB28DD859300820F85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0AF2FC7050F90DB9B4A6FC6 /* Pods-BankAppRealmDB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -293,8 +390,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,14 +400,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.IsmailovRuslan.BankAppRealmDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		B5169ACC28DD859300820F85 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C91C4CCEB771A64593BA863E /* Pods-BankAppRealmDB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -321,8 +423,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +433,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.IsmailovRuslan.BankAppRealmDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
