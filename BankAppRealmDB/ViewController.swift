@@ -13,12 +13,16 @@ class ViewController: UIViewController {
     //realm
     let realm = try! Realm()
     var item: BancCard?
-    var items: Results<BancCard>?
+    var items: Results<BancCard>? {
+        didSet {tableView.reloadData()}
+    }
     //
     var actionButtonVCDelegateDelegate = ActionButtonVC()
     
     var topUpDelegate = TopUpVC()
     var model = Model()
+    
+    var generalLabelAmount: Float = 0
     
     let darkBlue = UIColor(red: 0.0/255.0, green: 118.0/255.0, blue: 144.0/255.0, alpha: 1.0)
     let lightBlue = UIColor(red: 32.0/255.0, green: 205.0/255.0, blue: 228.0/255.0, alpha: 1.0)
@@ -201,10 +205,10 @@ class ViewController: UIViewController {
         labelXLTitle.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight(0.1))
         labelXLTitle.textColor = darkBlue
         
-        let amount = model.sumRealm()
+        generalLabelAmount = model.sumRealm()
         
         upperRectangle.addSubview(labelXXLAmount)
-        labelXXLAmount.text = "\(String(amount))"
+        labelXXLAmount.text = "\(String(generalLabelAmount))"
         labelXXLAmount.font = UIFont.systemFont(ofSize: 55, weight: UIFont.Weight(0.1))
         labelXXLAmount.textColor = myGray
         
@@ -262,8 +266,6 @@ class ViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.separatorStyle = .none
-        
-        
         
         print(realm.configuration.fileURL as Any)
         
@@ -419,10 +421,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTVC
         cell.selectionStyle = .none
         
-//        cell.labelNumCard.text = model.numCardsTest[indexPath.row].number
-//        cell.nameOfCardLabel.text = model.numCardsTest[indexPath.row].name
-//        cell.labelAmount.text = String(model.numCardsTest[indexPath.row].amount)
         
+        if tableView.isEditing{
+            cell.labelAmount.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight(0.2))
+            cell.imageViewCard.widthAnchor.constraint(equalToConstant: view.bounds.width / 2).isActive = true
+        }else {
+            cell.labelAmount.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(0.2))
+            cell.rectAmountAndUSD.leftAnchor.constraint(equalTo: cell.imageViewCard.rightAnchor, constant: 0).isActive = true
+        }
+        
+        cell.labelUSD.centerXAnchor.constraint(equalTo: cell.rectAmountAndUSD.centerXAnchor).isActive = true
+    
         cell.labelNumCard.text = items?[indexPath.row].idCard
         cell.nameOfCardLabel.text = items?[indexPath.row].name
         cell.labelAmount.text = String(items![indexPath.row].amount)
@@ -445,6 +454,33 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return 50
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let realm = try! Realm()
+            let cards = realm.objects(BancCard.self)
+            
+            try! realm.write{
+                realm.delete(cards[indexPath.row])
+            }
+            
+        }
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        tableView.reloadData()
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+//
+//    }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
@@ -455,9 +491,51 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return view
         }()
         
+        let addNewCard: UIButton = {
+            let btn = UIButton()
+            btn.translatesAutoresizingMaskIntoConstraints = false
+            btn.setImage(UIImage(systemName: "plus"), for: .normal)
+            btn.layer.cornerRadius = 15
+            btn.tintColor = .white
+            
+            return btn
+        }()
+        
+        let moveCard: UIButton = {
+            let btn = UIButton()
+            btn.translatesAutoresizingMaskIntoConstraints = false
+            btn.setImage(UIImage(systemName: "lineweight"), for: .normal)
+            btn.layer.cornerRadius = 15
+            btn.tintColor = .white
+            
+            return btn
+        }()
         
         headerView.addSubview(headerNameInTableView)
         headerView.addSubview(line)
+        
+        headerView.addSubview(addNewCard)
+        headerView.addSubview(moveCard)
+        
+        addNewCard.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        addNewCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        addNewCard.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -20).isActive = true
+        addNewCard.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -4).isActive = true
+        addNewCard.backgroundColor = lightBlue
+        addNewCard.setTitleColor(.white, for: .highlighted)
+        addNewCard.setTitleColor(.white, for: .normal)
+        addNewCard.addTarget(self, action: #selector(touchedAddNewCardBtn), for: .touchUpInside)
+        
+        moveCard.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        moveCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        moveCard.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20).isActive = true
+        moveCard.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -4).isActive = true
+        moveCard.backgroundColor = lightBlue
+        moveCard.setTitleColor(.white, for: .highlighted)
+        moveCard.setTitleColor(.white, for: .normal)
+        moveCard.addTarget(self, action: #selector(touchedMoveBtn), for: .touchUpInside)
+        
+        
         line.heightAnchor.constraint(equalToConstant: 3).isActive = true
         line.widthAnchor.constraint(equalToConstant: headerView.bounds.width).isActive = true
         line.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -4).isActive = true
@@ -470,6 +548,68 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    @objc func touchedMoveBtn(){
+        
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        tableView.reloadData()
+    }
+    
+    @objc func touchedAddNewCardBtn(){
+        let alert = UIAlertController(title: "Add new card".uppercased(), message: "", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .default)
+        let confirm = UIAlertAction(title: "Confirm", style: .cancel){[unowned self] action in
+            guard let nameCardInner = alert.textFields?[0], let noteNameCard = nameCardInner.text else {return}
+            guard let idCardInner = alert.textFields?[1], let noteIdCard = idCardInner.text else {return}
+            guard let amountInner = alert.textFields?[2], let noteAmount = amountInner.text else {return}
+            
+            if noteNameCard.isEmpty && noteIdCard.isEmpty && noteIdCard.isEmpty {
+                let alert = UIAlertController(title: "Please fill all fields", message: "", preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .default)
+                alert.addAction(cancel)
+                present(alert, animated: true)
+            }else{
+                addCardToRealm(name: noteNameCard, id: noteIdCard, amount: Float(noteAmount)!)
+            }
+            
+            tableView.reloadData()
+        }
+        
+        alert.addTextField(){textField in
+            textField.placeholder = "Enter name card"
+        }
+        alert.addTextField(){textField in
+            textField.placeholder = "0000 0000 0000 0000"
+            textField.keyboardType = .numberPad
+        }
+        alert.addTextField(){textField in
+            textField.placeholder = "how much do you want money =)"
+            textField.keyboardType = .numberPad
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+        
+        present(alert, animated: true)
+        
+    }
+    
+    func addCardToRealm(name: String, id: String, amount: Float){
+        let realm = try! Realm()
+        let item = BancCard()
+        let allCard = AllCards()
+        
+        item.name = name
+        item.idCard = id
+        item.amount = amount
+        
+        try! realm.write{
+            allCard.cards.append(item)
+            realm.add(allCard)
+        }
+        
+        generalLabelAmount = model.sumRealm()
+        labelXXLAmount.text = "\(String(generalLabelAmount))"
+    }
 }
 
 

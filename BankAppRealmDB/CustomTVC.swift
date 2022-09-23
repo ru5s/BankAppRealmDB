@@ -9,6 +9,8 @@ import UIKit
 
 class CustomTVC: UITableViewCell {
     
+    weak var vcDelegate: ViewController!
+    
     let darkBlue = UIColor(red: 0.0/255.0, green: 118.0/255.0, blue: 144.0/255.0, alpha: 1.0)
     let lightBlue = UIColor(red: 32.0/255.0, green: 205.0/255.0, blue: 228.0/255.0, alpha: 1.0)
     let myGray = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
@@ -90,7 +92,7 @@ class CustomTVC: UITableViewCell {
         return view
     }()
     
-    let labelAmount: UILabel = {
+    var labelAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 40)
@@ -99,7 +101,7 @@ class CustomTVC: UITableViewCell {
         return label
     }()
     
-    let labelUSD: UILabel = {
+    var labelUSD: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 20)
