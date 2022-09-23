@@ -158,6 +158,8 @@ class CustomTVC: UITableViewCell {
         rectNameOfCard.addSubview(nameOfCardLabel)
         nameOfCardLabel.centerYAnchor.constraint(equalTo: rectNameOfCard.centerYAnchor).isActive = true
         nameOfCardLabel.centerXAnchor.constraint(equalTo: rectNameOfCard.centerXAnchor).isActive = true
+        nameOfCardLabel.widthAnchor.constraint(equalToConstant: .maximum(40, 130)).isActive = true
+        nameOfCardLabel.textAlignment = .center
         nameOfCardLabel.textColor = darkBlue
         
         //

@@ -432,11 +432,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.labelUSD.centerXAnchor.constraint(equalTo: cell.rectAmountAndUSD.centerXAnchor).isActive = true
     
-        cell.labelNumCard.text = items?[indexPath.row].idCard
+        cell.labelNumCard.text = separateIdCard(id: (items?[indexPath.row].idCard)!)
         cell.nameOfCardLabel.text = items?[indexPath.row].name
         cell.labelAmount.text = String(items![indexPath.row].amount)
         
         return cell
+    }
+    
+    func separateIdCard(id: String) -> String{
+        let creditCardNumber = id
+        let formattedCreditCardNumber = creditCardNumber.replacingOccurrences(of: "(\\d{4})(\\d{4})(\\d{4})(\\d+)", with: "$1 $2 $3 $4", options: .regularExpression, range: nil)
+        
+        return formattedCreditCardNumber
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -476,10 +483,55 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-//
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        items = realm.objects(BancCard.self)
+        let item = items?[indexPath.row]
+        
+        let alert = UIAlertController(title: "Add new card".uppercased(), message: "", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .default)
+        let confirm = UIAlertAction(title: "Confirm", style: .cancel){[unowned self] action in
+            guard let nameCardInner = alert.textFields?[0], let noteNameCard = nameCardInner.text else {return}
+            guard let idCardInner = alert.textFields?[1], let noteIdCard = idCardInner.text else {return}
+            guard let amountInner = alert.textFields?[2], let noteAmount = amountInner.text else {return}
+            
+            if noteNameCard.isEmpty && noteIdCard.isEmpty && noteIdCard.isEmpty {
+                let alert = UIAlertController(title: "Please fill all fields", message: "", preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .default)
+                alert.addAction(cancel)
+                present(alert, animated: true)
+            }else{
+                let items = realm.objects(BancCard.self)
+                
+                try! realm.write{
+                    items[indexPath.row].name = noteNameCard
+                    items[indexPath.row].idCard = noteIdCard
+                    items[indexPath.row].amount = Float(noteAmount)!
+                }
+                
+            }
+            generalLabelAmount = model.sumRealm()
+            labelXXLAmount.text = "\(String(generalLabelAmount))"
+            tableView.reloadData()
+        }
+        
+        alert.addTextField(){textField in
+            textField.text = item?.name
+        }
+        alert.addTextField(){textField in
+            textField.text = item?.idCard
+            textField.keyboardType = .numberPad
+        }
+        alert.addTextField(){textField in
+            textField.text = String(item!.amount)
+            textField.keyboardType = .numberPad
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+        
+        present(alert, animated: true)
+        
+    }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
