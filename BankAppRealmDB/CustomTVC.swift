@@ -79,6 +79,7 @@ class CustomTVC: UITableViewCell {
         label.font = UIFont(name: "Helvetica", size: 30)
         label.textColor = .black
         label.layer.opacity = 1
+        label.numberOfLines = 2
         
         return label
     }()
@@ -95,8 +96,8 @@ class CustomTVC: UITableViewCell {
     var labelAmount: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Helvetica", size: 40)
-        label.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(0.2))
+        label.font = UIFont(name: "Helvetica", size: 30)
+        label.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight(0.2))
         
         return label
     }()
@@ -115,6 +116,9 @@ class CustomTVC: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         //
+        
+        contentView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
+        
         contentView.addSubview(rectOfCell)
         rectOfCell.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         rectOfCell.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
@@ -140,11 +144,11 @@ class CustomTVC: UITableViewCell {
         rectWithCardAndAmount.topAnchor.constraint(equalTo: rectNumCard.bottomAnchor, constant: 5).isActive = true
         
         //
-        let width = contentView.bounds.width
+        let width = contentView.bounds.width / 2
         rectWithCardAndAmount.addSubview(imageViewCard)
         
         imageViewCard.layer.cornerRadius = 10
-        imageViewCard.widthAnchor.constraint(equalToConstant: width / 2).isActive = true
+        imageViewCard.widthAnchor.constraint(equalToConstant: width - 10).isActive = true
         imageViewCard.topAnchor.constraint(equalTo: rectWithCardAndAmount.topAnchor, constant: 5).isActive = true
         imageViewCard.leftAnchor.constraint(equalTo: rectWithCardAndAmount.leftAnchor, constant: 5).isActive = true
         imageViewCard.bottomAnchor.constraint(equalTo: rectWithCardAndAmount.bottomAnchor, constant: -5).isActive = true
@@ -164,9 +168,9 @@ class CustomTVC: UITableViewCell {
         
         //
         rectWithCardAndAmount.addSubview(rectAmountAndUSD)
-        rectAmountAndUSD.widthAnchor.constraint(equalToConstant: width / 2).isActive = true
+        rectAmountAndUSD.widthAnchor.constraint(equalToConstant: width).isActive = true
         rectAmountAndUSD.topAnchor.constraint(equalTo: rectWithCardAndAmount.topAnchor, constant: 5).isActive = true
-        rectAmountAndUSD.rightAnchor.constraint(equalTo: rectWithCardAndAmount.rightAnchor, constant: -5).isActive = true
+        rectAmountAndUSD.rightAnchor.constraint(equalTo: rectWithCardAndAmount.rightAnchor, constant: 0).isActive = true
         rectAmountAndUSD.bottomAnchor.constraint(equalTo: rectWithCardAndAmount.bottomAnchor, constant: -5).isActive = true
         
         rectAmountAndUSD.addSubview(labelAmount)

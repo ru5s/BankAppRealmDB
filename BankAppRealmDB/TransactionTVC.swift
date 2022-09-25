@@ -34,9 +34,10 @@ class TransactionTVC: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 12)
-        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight(0.1))
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight(0.1))
         label.textAlignment = .left
         label.text = "card 1"
+        label.numberOfLines = 2
         
         return label
     }()
@@ -67,7 +68,7 @@ class TransactionTVC: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Helvetica", size: 12)
-        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight(0.1))
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight(0.1))
         label.textAlignment = .right
         label.text = "120"
         
@@ -99,7 +100,7 @@ class TransactionTVC: UITableViewCell {
         
         nameOfCard.leftAnchor.constraint(equalTo: rectengleToCell.leftAnchor, constant: 10).isActive = true
         nameOfCard.centerYAnchor.constraint(equalTo: rectengleToCell.centerYAnchor).isActive = true
-        nameOfCard.widthAnchor.constraint(equalToConstant: .maximum(70, 140)).isActive = true
+        nameOfCard.widthAnchor.constraint(equalToConstant: .maximum(70, 100)).isActive = true
         nameOfCard.textColor = darkBlue
         
         finishAmount.rightAnchor.constraint(equalTo: rectengleToCell.rightAnchor, constant: -10).isActive = true

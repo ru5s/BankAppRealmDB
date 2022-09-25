@@ -179,7 +179,7 @@ class ViewController: UIViewController {
         let tb = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.register(CustomTVC.self, forCellReuseIdentifier: "Cell")
-        tb.backgroundColor = .white
+        tb.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
         tb.layer.cornerRadius = 10
         
         return tb
@@ -266,6 +266,8 @@ class ViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
+        tableView.tintColor = .white
         
         print(realm.configuration.fileURL as Any)
         
@@ -395,11 +397,11 @@ class ViewController: UIViewController {
     }
     
     func setGradientBackground() {
-        let colorTop =  UIColor(red: 188.0/255.0, green: 247.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 156.0/255.0, green: 219.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
+        let colorTop = UIColor(named: "topGradient")?.cgColor
+        let colorBottom = UIColor(named: "bottomGradient")?.cgColor
                     
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.colors = [colorTop as Any, colorBottom as Any]
         gradientLayer.locations = [0.4, 0.75]
         gradientLayer.frame = self.view.bounds
                 
@@ -412,7 +414,6 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return model.numCardsTest.count
         return items!.count
     }
     
@@ -420,17 +421,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTVC
         cell.selectionStyle = .none
-        
-        
-        if tableView.isEditing{
-            cell.labelAmount.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight(0.2))
-            cell.imageViewCard.widthAnchor.constraint(equalToConstant: view.bounds.width / 2).isActive = true
-        }else {
-            cell.labelAmount.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(0.2))
-            cell.rectAmountAndUSD.leftAnchor.constraint(equalTo: cell.imageViewCard.rightAnchor, constant: 0).isActive = true
-        }
-        
-        cell.labelUSD.centerXAnchor.constraint(equalTo: cell.rectAmountAndUSD.centerXAnchor).isActive = true
     
         cell.labelNumCard.text = separateIdCard(id: (items?[indexPath.row].idCard)!)
         cell.nameOfCardLabel.text = items?[indexPath.row].name
@@ -440,6 +430,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func separateIdCard(id: String) -> String{
+
         let creditCardNumber = id
         let formattedCreditCardNumber = creditCardNumber.replacingOccurrences(of: "(\\d{4})(\\d{4})(\\d{4})(\\d+)", with: "$1 $2 $3 $4", options: .regularExpression, range: nil)
         
@@ -474,15 +465,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        tableView.reloadData()
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         items = realm.objects(BancCard.self)
         let item = items?[indexPath.row]
@@ -494,7 +476,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             guard let idCardInner = alert.textFields?[1], let noteIdCard = idCardInner.text else {return}
             guard let amountInner = alert.textFields?[2], let noteAmount = amountInner.text else {return}
             
-            if noteNameCard.isEmpty && noteIdCard.isEmpty && noteIdCard.isEmpty {
+            if noteNameCard.isEmpty || noteIdCard.isEmpty || noteIdCard.isEmpty {
                 let alert = UIAlertController(title: "Please fill all fields", message: "", preferredStyle: .alert)
                 let cancel = UIAlertAction(title: "Cancel", style: .default)
                 alert.addAction(cancel)
@@ -553,21 +535,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return btn
         }()
         
-        let moveCard: UIButton = {
-            let btn = UIButton()
-            btn.translatesAutoresizingMaskIntoConstraints = false
-            btn.setImage(UIImage(systemName: "lineweight"), for: .normal)
-            btn.layer.cornerRadius = 15
-            btn.tintColor = .white
-            
-            return btn
-        }()
+        headerView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
+        
+        headerView.tintColor = .white
         
         headerView.addSubview(headerNameInTableView)
         headerView.addSubview(line)
         
         headerView.addSubview(addNewCard)
-        headerView.addSubview(moveCard)
         
         addNewCard.widthAnchor.constraint(equalToConstant: 50).isActive = true
         addNewCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -577,15 +552,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         addNewCard.setTitleColor(.white, for: .highlighted)
         addNewCard.setTitleColor(.white, for: .normal)
         addNewCard.addTarget(self, action: #selector(touchedAddNewCardBtn), for: .touchUpInside)
-        
-        moveCard.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        moveCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        moveCard.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20).isActive = true
-        moveCard.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -4).isActive = true
-        moveCard.backgroundColor = lightBlue
-        moveCard.setTitleColor(.white, for: .highlighted)
-        moveCard.setTitleColor(.white, for: .normal)
-        moveCard.addTarget(self, action: #selector(touchedMoveBtn), for: .touchUpInside)
         
         
         line.heightAnchor.constraint(equalToConstant: 3).isActive = true
@@ -600,12 +566,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    @objc func touchedMoveBtn(){
-        
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        tableView.reloadData()
-    }
-    
     @objc func touchedAddNewCardBtn(){
         let alert = UIAlertController(title: "Add new card".uppercased(), message: "", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .default)
@@ -614,7 +574,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             guard let idCardInner = alert.textFields?[1], let noteIdCard = idCardInner.text else {return}
             guard let amountInner = alert.textFields?[2], let noteAmount = amountInner.text else {return}
             
-            if noteNameCard.isEmpty && noteIdCard.isEmpty && noteIdCard.isEmpty {
+            if noteNameCard.isEmpty || noteIdCard.isEmpty || noteIdCard.isEmpty {
                 let alert = UIAlertController(title: "Please fill all fields", message: "", preferredStyle: .alert)
                 let cancel = UIAlertAction(title: "Cancel", style: .default)
                 alert.addAction(cancel)

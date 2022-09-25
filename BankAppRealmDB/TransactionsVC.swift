@@ -128,10 +128,13 @@ class TransactionsVC: UIViewController {
         
         view.addSubview(rectToTitle)
         rectToTitle.addSubview(headerTitleLabel)
-        headerTitleLabel.textColor = darkBlue
-        headerTitleLabel.text = "Transactions".uppercased()
         
-        backButton.setTitleColor(darkBlue, for: .normal)
+        headerTitleLabel.text = "Transactions".uppercased()
+        headerTitleLabel.textColor = darkBlue
+        
+        backButton.tintColor = UIColor(named: "backBtn")
+        
+        backButton.setTitleColor(UIColor(named: "backBtn"), for: .normal)
         backButton.setTitleColor(lightBlue, for: .highlighted)
         backButton.addTarget(self, action: #selector(touchedBackBtn), for: .touchUpInside)
         
@@ -175,11 +178,11 @@ class TransactionsVC: UIViewController {
     }
     
     func setGradientBackground() {
-        let colorTop =  UIColor(red: 188.0/255.0, green: 247.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 156.0/255.0, green: 219.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
+        let colorTop = UIColor(named: "topGradient")?.cgColor
+        let colorBottom = UIColor(named: "bottomGradient")?.cgColor
                     
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.colors = [colorTop as Any, colorBottom as Any]
         gradientLayer.locations = [0.4, 0.75]
         gradientLayer.frame = self.view.bounds
                 
@@ -233,11 +236,15 @@ extension TransactionsVC: UITableViewDelegate, UITableViewDataSource {
             return view
         }()
         
+        headerView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
+        
+        headerView.tintColor = .white
+        
         headerView.addSubview(headerBtnByDate)
         headerView.addSubview(headerBtnByTopUp)
         headerView.addSubview(headerBtnByWithdrawal)
         
-        headerBtnByDate.widthAnchor.constraint(equalToConstant: 120).isActive = true
+//        headerBtnByDate.widthAnchor.constraint(equalToConstant: 120).isActive = true
         headerBtnByDate.heightAnchor.constraint(equalToConstant: 50).isActive = true
         headerBtnByDate.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 10).isActive = true
         headerBtnByDate.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
@@ -245,16 +252,19 @@ extension TransactionsVC: UITableViewDelegate, UITableViewDataSource {
         headerBtnByDate.setTitleColor(darkBlue, for: .normal)
         headerBtnByDate.addTarget(self, action: #selector(touchedHeaderBtnByDate(btn:)), for: .touchUpInside)
         
-        headerBtnByWithdrawal.widthAnchor.constraint(equalToConstant: 120).isActive = true
+//        headerBtnByWithdrawal.widthAnchor.constraint(equalToConstant: 120).isActive = true
         headerBtnByWithdrawal.heightAnchor.constraint(equalToConstant: 50).isActive = true
         headerBtnByWithdrawal.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10).isActive = true
         headerBtnByWithdrawal.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
         headerBtnByWithdrawal.layer.borderColor = lightBlue.cgColor
         headerBtnByWithdrawal.setTitleColor(darkBlue, for: .normal)
         headerBtnByWithdrawal.addTarget(self, action: #selector(touchedHeaderBtnByWithdrawal(btn:)), for: .touchUpInside)
+        let topUpBtnWidth = view.bounds.width / 3
         
-        headerBtnByTopUp.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        headerBtnByTopUp.widthAnchor.constraint(equalToConstant: topUpBtnWidth - 10).isActive = true
         headerBtnByTopUp.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        headerBtnByTopUp.leftAnchor.constraint(equalTo: headerBtnByDate.rightAnchor, constant: 10).isActive = true
+        headerBtnByTopUp.rightAnchor.constraint(equalTo: headerBtnByWithdrawal.leftAnchor, constant: -10).isActive = true
         headerBtnByTopUp.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
         headerBtnByTopUp.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
         headerBtnByTopUp.layer.borderColor = lightBlue.cgColor

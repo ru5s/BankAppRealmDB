@@ -99,9 +99,9 @@ class ActionButtonVC: UIViewController, ActionButtonVCDelegate {
         
         
         view.addSubview(backButton)
-        backButton.tintColor = darkBlue
+        backButton.tintColor = UIColor(named: "backBtn")
         
-        backButton.setTitleColor(darkBlue, for: .normal)
+        backButton.setTitleColor(UIColor(named: "backBtn"), for: .normal)
         backButton.setTitleColor(lightBlue, for: .highlighted)
         backButton.addTarget(self, action: #selector(touchedBackBtn), for: .touchUpInside)
         
@@ -113,6 +113,8 @@ class ActionButtonVC: UIViewController, ActionButtonVCDelegate {
         view.addSubview(tableView)
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 0
+        
+        tableView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
         
         tableView.reloadData()
         
@@ -159,11 +161,11 @@ class ActionButtonVC: UIViewController, ActionButtonVCDelegate {
     }
     
     func setGradientBackground() {
-        let colorTop =  UIColor(red: 188.0/255.0, green: 247.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 156.0/255.0, green: 219.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
+        let colorTop = UIColor(named: "topGradient")?.cgColor
+        let colorBottom = UIColor(named: "bottomGradient")?.cgColor
                     
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.colors = [colorTop as Any, colorBottom as Any]
         gradientLayer.locations = [0.4, 0.75]
         gradientLayer.frame = self.view.bounds
                 
@@ -184,11 +186,18 @@ extension ActionButtonVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTVC
         cell.selectionStyle = .none
         
-        cell.labelNumCard.text = items?[indexPath.row].idCard
+        cell.labelNumCard.text = separateIdCard(id: (items?[indexPath.row].idCard)!)
         cell.nameOfCardLabel.text = items?[indexPath.row].name
         cell.labelAmount.text = String(items![indexPath.row].amount)
         
         return cell
+    }
+    
+    func separateIdCard(id: String) -> String{
+        let creditCardNumber = id
+        let formattedCreditCardNumber = creditCardNumber.replacingOccurrences(of: "(\\d{4})(\\d{4})(\\d{4})(\\d+)", with: "$1 $2 $3 $4", options: .regularExpression, range: nil)
+        
+        return formattedCreditCardNumber
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -233,7 +242,9 @@ extension ActionButtonVC: UITableViewDelegate, UITableViewDataSource {
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
+        headerView.backgroundColor = UIColor(named: "tableVIewBackgroundColor")
         
+        headerView.tintColor = .white
         
         headerView.addSubview(headerNameInTableView)
         headerView.addSubview(line)
