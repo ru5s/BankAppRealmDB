@@ -181,22 +181,33 @@ class TopUpVC: UIViewController, TopUpVCDelegateProtocol {
         let transaction = Transfer()
         
         let amountCard = items?[currentIndex].amount
-        let enteredDigit = textFieldToAmount.text!
         
-        let answer = Float(amountCard!) + Float(enteredDigit)!
+        var newNumText: String = ""
+        
+        for i in textFieldToAmount.text!{
+            if i == "," {
+                newNumText.append(".")
+            }else{
+                newNumText.append(i)
+            }
+        }
+        
+        let enteredDigit = Float(newNumText)
+        
+        let answer = Float(amountCard!) + enteredDigit!
         
         let saveItem = items?[currentIndex]
         try! realm.write{
             
             saveItem?.amount = answer
-            
+             
         }
         
         tableView.reloadData()
         transaction.action = "Top up card"
         transaction.idCard = (items?[currentIndex].idCard)!
         transaction.name = (items?[currentIndex].name)!
-        transaction.finishAmount = Float(enteredDigit)!
+        transaction.finishAmount = enteredDigit!
         transaction.date = Date()
 
         try! realm.write{
@@ -215,7 +226,18 @@ class TopUpVC: UIViewController, TopUpVCDelegateProtocol {
         let transaction = Transfer()
         
         let amountCard = Float((items?[currentIndex].amount)!)
-        let enteredDigit = Float(textFieldToAmount.text!)
+        
+        var newNumText: String = ""
+        
+        for i in textFieldToAmount.text!{
+            if i == "," {
+                newNumText.append(".")
+            }else{
+                newNumText.append(i)
+            }
+        }
+        
+        let enteredDigit = Float(newNumText)
         
         if amountCard < enteredDigit! {
             let alert = UIAlertController(title: "Sorry", message: "You don't have enough money", preferredStyle: .alert)
@@ -254,7 +276,18 @@ class TopUpVC: UIViewController, TopUpVCDelegateProtocol {
         let transaction = Transfer()
         
         let amountCard = Float((items?[currentIndex].amount)!)
-        let enteredDigit = Float(textFieldToAmount.text!)
+        
+        var newNumText: String = ""
+        
+        for i in textFieldToAmount.text!{
+            if i == "," {
+                newNumText.append(".")
+            }else{
+                newNumText.append(i)
+            }
+        }
+        
+        let enteredDigit = Float(newNumText)
         
         if amountCard < enteredDigit! {
             let alert = UIAlertController(title: "Sorry", message: "You don't have enough money", preferredStyle: .alert)
